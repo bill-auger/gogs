@@ -36,3 +36,5 @@ docker/docker/Dockerfile
 docker/docker/init_gogs.sh
 gogs.sublime-project
 gogs.sublime-workspace
+debian/gogs
+debian/build
