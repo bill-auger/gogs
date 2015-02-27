@@ -1,0 +1,8 @@
+gogs (0.5.13-1) unstable; urgency=low
+
+  * New upstream release.
+  * Switch to git-dpm.
+  * Rebase and cleanup patches.
+
+ -- Dimitri John Ledkov <xnox@debian.org>  Sat, 19 Apr 2014 12:12:11 +0100
+

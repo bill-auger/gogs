@@ -1,0 +1,16 @@
+#!/bin/bash
+case $1 in 
+	remove)
+	:
+	/etc/init.d/gogs stop
+	update-rc.d gogs disable
+	;;
+	purge)
+	:
+	/etc/init.d/gogs stop
+	update-rc.d gogs disable
+	deluser git
+	delgroup git
+	rm -rf /opt/gogs
+	;;
+esac

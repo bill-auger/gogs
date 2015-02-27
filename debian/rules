@@ -1,0 +1,50 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+export GOPATH=$(CURDIR)/debian/build
+PKGDIR=debian/gogs
+
+%:
+	dh $@ 
+
+clean:
+	dh_clean
+	rm -rf $(GOPATH)/bin/* $(GOPATH)/pkg/*
+	#cd $(GOPATH)/src && find * -name '*.go' -exec dirname {} \; | xargs -n1 go clean
+	rm -f $(GOPATH)/goinstall.log
+
+binary-arch: clean
+	dh_prep
+	dh_installdirs
+	go get -d
+	go build
+	mkdir -p $(PKGDIR)/DEBIAN
+	mkdir -p $(PKGDIR)/opt/gogs
+	mkdir -p $(PKGDIR)/opt/gogs/data
+	mkdir -p $(PKGDIR)/opt/gogs/log
+	mkdir -p $(PKGDIR)/opt/gogs/custom/conf
+	mkdir -p $(PKGDIR)/var/log
+	mkdir -p $(PKGDIR)/etc
+	mkdir -p $(PKGDIR)/etc/init.d
+	ln -s /opt/gogs/log $(PKGDIR)/var/log/gogs
+	ln -s /opt/gogs/conf $(PKGDIR)/etc/gogs
+	cp debian/gogs.init $(PKGDIR)/etc/init.d/gogs
+	cp gogs $(PKGDIR)/opt/gogs
+	cp -rvp public $(PKGDIR)/opt/gogs
+	cp -rvp templates $(PKGDIR)/opt/gogs
+	cp -rvp scripts $(PKGDIR)/opt/gogs
+	cp -rvp conf $(PKGDIR)/opt/gogs
+	cp debian/postinst $(PKGDIR)/DEBIAN
+	sed -i 's#^MODE =.*#MODE = file#' $(PKGDIR)/opt/gogs/conf/app.ini
+	#dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-arch
