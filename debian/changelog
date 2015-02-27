@@ -1,3 +1,9 @@
+gogs (0.5.13-3) unstable; urgency=low
+
+  * Remove advertisement
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Fri, 27 Feb 2015 23:17:31 +0100
+
 gogs (0.5.13-2) unstable; urgency=low
 
   * Fix footers
