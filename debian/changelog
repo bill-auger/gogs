@@ -1,8 +1,12 @@
+gogs (0.5.13-2) unstable; urgency=low
+
+  * Fix footers
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Fri, Feb 27 23:00:01 CET 2015
+
 gogs (0.5.13-1) unstable; urgency=low
 
-  * New upstream release.
-  * Switch to git-dpm.
-  * Rebase and cleanup patches.
+  * Initial version
 
- -- Dimitri John Ledkov <xnox@debian.org>  Sat, 19 Apr 2014 12:12:11 +0100
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Fri, Feb 27 23:00:01 CET 2015
 
