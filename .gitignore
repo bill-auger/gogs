@@ -38,3 +38,4 @@ gogs.sublime-project
 gogs.sublime-workspace
 debian/gogs
 debian/build
+debian/files
