@@ -17,6 +17,7 @@ import (
 const (
 	HOME          base.TplName = "home"
 	EXPLORE_REPOS base.TplName = "explore/repos"
+	HELP          base.TplName = "help"
 )
 
 func Home(ctx *middleware.Context) {
@@ -64,6 +65,12 @@ func Explore(ctx *middleware.Context) {
 	ctx.Data["Repos"] = repos
 
 	ctx.HTML(200, EXPLORE_REPOS)
+}
+
+func Help(ctx *middleware.Context) {
+	ctx.Data["Title"] = ctx.Tr("help")
+
+	ctx.HTML(200, HELP)
 }
 
 func NotFound(ctx *middleware.Context) {

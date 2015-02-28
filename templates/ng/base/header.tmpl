@@ -8,7 +8,7 @@
             <a href="{{AppSubUrl}}/">{{if .IsSigned}}{{.i18n.Tr "dashboard"}}{{else}}{{.i18n.Tr "home"}}{{end}}</a>
         </li>
         <li><a href="{{AppSubUrl}}/explore">{{.i18n.Tr "explore"}}</a></li>
-        <li><a target="_blank" href="http://gogs.io/docs">{{.i18n.Tr "help"}}</a></li>
+        <li><a href="{{AppSubUrl}}/help">{{.i18n.Tr "help"}}</a></li>
         {{end}}
 
         {{if .IsSigned}}
@@ -40,7 +40,7 @@
         {{else}}
             {{if .PageIsHome}}
             <li class="right" id="header-nav-help">
-                <a target="_blank" href="http://gogs.io/docs"><i class="octicon octicon-info"></i>&nbsp;&nbsp;{{.i18n.Tr "help"}}</a>
+                <a href="{{AppSubUrl}}/help"><i class="octicon octicon-info"></i>&nbsp;&nbsp;{{.i18n.Tr "help"}}</a>
             </li>
             <li class="right" id="header-nav-explore">
                 <a href="{{AppSubUrl}}/explore"><i class="octicon octicon-globe"></i>&nbsp;&nbsp;{{.i18n.Tr "explore"}}</a>

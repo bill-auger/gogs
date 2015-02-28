@@ -185,6 +185,7 @@ func runWeb(ctx *cli.Context) {
 	// Routers.
 	m.Get("/", ignSignIn, routers.Home)
 	m.Get("/explore", ignSignIn, routers.Explore)
+	m.Get("/help", ignSignIn, routers.Help)
 	m.Combo("/install", routers.InstallInit).
 		Get(routers.Install).
 		Post(bindIgnErr(auth.InstallForm{}), routers.InstallPost)
