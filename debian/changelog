@@ -1,3 +1,13 @@
+gogs (0.5.13-6) unstable; urgency=low
+
+  * Add local /help router
+  * Build our local version of the gogs source
+  * Remove more github references
+  * Don't bundle debian/files it seems generated
+  * We don't need to bundle the scripts directory
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Sat, 28 Feb 2015 16:58:53 +0100
+
 gogs (0.5.13-5) unstable; urgency=low
 
   * Change favicon
