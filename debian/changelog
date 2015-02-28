@@ -1,3 +1,9 @@
+gogs (0.5.13-7) unstable; urgency=low
+
+  * Add peers project reference to main page
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Sat, 28 Feb 2015 17:30:33 +0100
+
 gogs (0.5.13-6) unstable; urgency=low
 
   * Add local /help router
