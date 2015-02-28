@@ -37,9 +37,9 @@ binary-arch: clean
 	ln -s /opt/gogs/conf $(PKGDIR)/etc/gogs
 	cp debian/gogs.init $(PKGDIR)/etc/init.d/gogs
 	cp gogs $(PKGDIR)/opt/gogs
-	cp -rvp public $(PKGDIR)/opt/gogs
-	cp -rvp templates $(PKGDIR)/opt/gogs
-	cp -rvp conf $(PKGDIR)/opt/gogs
+	cp -rp public $(PKGDIR)/opt/gogs
+	cp -rp templates $(PKGDIR)/opt/gogs
+	cp -rp conf $(PKGDIR)/opt/gogs
 	cp debian/postinst $(PKGDIR)/DEBIAN
 	sed -i 's#^MODE =.*#MODE = file#' $(PKGDIR)/opt/gogs/conf/app.ini
 	#dh_strip
