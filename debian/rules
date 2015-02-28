@@ -35,7 +35,6 @@ binary-arch: clean
 	cp gogs $(PKGDIR)/opt/gogs
 	cp -rvp public $(PKGDIR)/opt/gogs
 	cp -rvp templates $(PKGDIR)/opt/gogs
-	cp -rvp scripts $(PKGDIR)/opt/gogs
 	cp -rvp conf $(PKGDIR)/opt/gogs
 	cp debian/postinst $(PKGDIR)/DEBIAN
 	sed -i 's#^MODE =.*#MODE = file#' $(PKGDIR)/opt/gogs/conf/app.ini
