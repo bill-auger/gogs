@@ -1,3 +1,9 @@
+gogs (0.5.13-9) unstable; urgency=low
+
+  * Add 'powered by gogs' to the main page
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Sun, 01 Mar 2015 14:29:32 +0100
+
 gogs (0.5.13-8) unstable; urgency=low
 
   * Change peers header on main page
