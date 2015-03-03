@@ -1,3 +1,9 @@
+gogs (0.5.13-11) unstable; urgency=low
+
+  * Remove CDN versions of javascript and CSS
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Wed, 04 Mar 2015 00:16:44 +0100
+
 gogs (0.5.13-10) unstable; urgency=low
 
   * Force CDN mode. 
