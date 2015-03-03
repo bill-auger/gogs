@@ -112,7 +112,7 @@ var TemplateFuncs template.FuncMap = map[string]interface{}{
 		return setting.Domain
 	},
 	"CdnMode": func() bool {
-		return true
+		return false
 	},
 	"LoadTimes": func(startTime time.Time) string {
 		return fmt.Sprint(time.Since(startTime).Nanoseconds()/1e6) + "ms"
