@@ -8,7 +8,7 @@ case $1 in
 	chown git.git /opt/gogs/custom/conf
 	chown git.git /opt/gogs/data
 	chown git.git /opt/gogs/log
-	chown -R git.git /var/lib/gogs
+	chown git.git /var/lib/gogs
 
 	update-rc.d gogs start 2 3 4 5 
 	/etc/init.d/gogs start
