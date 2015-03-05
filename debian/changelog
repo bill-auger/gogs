@@ -1,3 +1,9 @@
+gogs (0.5.13-12) unstable; urgency=low
+
+  * Default to 'master' branch if it exists for migrations
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Thu, 05 Mar 2015 10:44:40 +0100
+
 gogs (0.5.13-11) unstable; urgency=low
 
   * Remove CDN versions of javascript and CSS

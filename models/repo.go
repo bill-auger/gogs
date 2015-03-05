@@ -367,6 +367,12 @@ func MigrateRepository(u *User, name, desc string, private, mirror bool, url str
 		return repo, fmt.Errorf("create update hook: %v", err)
 	}
 
+	// Default to 'master' branch if it exists
+	gitrepo, err := git.OpenRepository(repoPath)
+	if gitrepo.IsBranchExist("master") {
+		repo.DefaultBranch = "master"
+	}
+
 	return repo, UpdateRepository(repo)
 }
 
