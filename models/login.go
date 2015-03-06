@@ -169,61 +169,59 @@ func UserSignIn(uname, passwd string) (*User, error) {
 	// For plain login, user must exist to reach this line.
 	// Now verify password.
 	if u.LoginType == PLAIN {
-		newUser := &User{Passwd: passwd, Salt: u.Salt}
-		newUser.EncodePasswd()
-		if u.Passwd != newUser.Passwd {
+		if !u.ValidtePassword(passwd) {
 			return nil, ErrUserNotExist
 		}
 		return u, nil
-	} else {
-		if !has {
-			var sources []LoginSource
-			if err = x.UseBool().Find(&sources,
-				&LoginSource{IsActived: true, AllowAutoRegister: true}); err != nil {
-				return nil, err
-			}
-
-			for _, source := range sources {
-				if source.Type == LDAP {
-					u, err := LoginUserLdapSource(nil, uname, passwd,
-						source.Id, source.Cfg.(*LDAPConfig), true)
-					if err == nil {
-						return u, nil
-					}
-					log.Warn("Fail to login(%s) by LDAP(%s): %v", uname, source.Name, err)
-				} else if source.Type == SMTP {
-					u, err := LoginUserSMTPSource(nil, uname, passwd,
-						source.Id, source.Cfg.(*SMTPConfig), true)
-					if err == nil {
-						return u, nil
-					}
-					log.Warn("Fail to login(%s) by SMTP(%s): %v", uname, source.Name, err)
-				}
-			}
-
-			return nil, ErrUserNotExist
-		}
-
-		var source LoginSource
-		hasSource, err := x.Id(u.LoginSource).Get(&source)
-		if err != nil {
-			return nil, err
-		} else if !hasSource {
-			return nil, ErrLoginSourceNotExist
-		} else if !source.IsActived {
-			return nil, ErrLoginSourceNotActived
-		}
-
-		switch u.LoginType {
-		case LDAP:
-			return LoginUserLdapSource(u, u.LoginName, passwd,
-				source.Id, source.Cfg.(*LDAPConfig), false)
-		case SMTP:
-			return LoginUserSMTPSource(u, u.LoginName, passwd,
-				source.Id, source.Cfg.(*SMTPConfig), false)
-		}
-		return nil, ErrUnsupportedLoginType
 	}
+
+	if !has {
+		var sources []LoginSource
+		if err = x.UseBool().Find(&sources,
+			&LoginSource{IsActived: true, AllowAutoRegister: true}); err != nil {
+			return nil, err
+		}
+
+		for _, source := range sources {
+			if source.Type == LDAP {
+				u, err := LoginUserLdapSource(nil, uname, passwd,
+					source.Id, source.Cfg.(*LDAPConfig), true)
+				if err == nil {
+					return u, nil
+				}
+				log.Warn("Fail to login(%s) by LDAP(%s): %v", uname, source.Name, err)
+			} else if source.Type == SMTP {
+				u, err := LoginUserSMTPSource(nil, uname, passwd,
+					source.Id, source.Cfg.(*SMTPConfig), true)
+				if err == nil {
+					return u, nil
+				}
+				log.Warn("Fail to login(%s) by SMTP(%s): %v", uname, source.Name, err)
+			}
+		}
+
+		return nil, ErrUserNotExist
+	}
+
+	var source LoginSource
+	hasSource, err := x.Id(u.LoginSource).Get(&source)
+	if err != nil {
+		return nil, err
+	} else if !hasSource {
+		return nil, ErrLoginSourceNotExist
+	} else if !source.IsActived {
+		return nil, ErrLoginSourceNotActived
+	}
+
+	switch u.LoginType {
+	case LDAP:
+		return LoginUserLdapSource(u, u.LoginName, passwd,
+			source.Id, source.Cfg.(*LDAPConfig), false)
+	case SMTP:
+		return LoginUserSMTPSource(u, u.LoginName, passwd,
+			source.Id, source.Cfg.(*SMTPConfig), false)
+	}
+	return nil, ErrUnsupportedLoginType
 }
 
 // Query if name/passwd can login against the LDAP directory pool
@@ -231,7 +229,7 @@ func UserSignIn(uname, passwd string) (*User, error) {
 // Return the same LoginUserPlain semantic
 // FIXME: https://github.com/gogits/gogs/issues/672
 func LoginUserLdapSource(u *User, name, passwd string, sourceId int64, cfg *LDAPConfig, autoRegister bool) (*User, error) {
-	mail, logged := cfg.Ldapsource.SearchEntry(name, passwd)
+	name, fn, sn, mail, logged := cfg.Ldapsource.SearchEntry(name, passwd)
 	if !logged {
 		// User not in LDAP, do nothing
 		return nil, ErrUserNotExist
@@ -247,6 +245,7 @@ func LoginUserLdapSource(u *User, name, passwd string, sourceId int64, cfg *LDAP
 
 	u = &User{
 		Name:        name,
+		FullName:    fn + " " + sn,
 		LoginType:   LDAP,
 		LoginSource: sourceId,
 		LoginName:   name,

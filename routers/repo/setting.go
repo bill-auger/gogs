@@ -10,7 +10,6 @@ import (
 	"fmt"
 	"strings"
 	"time"
-	"path"
 
 	"github.com/Unknwon/com"
 
@@ -54,15 +53,11 @@ func SettingsPost(ctx *middleware.Context, form auth.RepoSettingForm) {
 		newRepoName := form.RepoName
 		// Check if repository name has been changed.
 		if ctx.Repo.Repository.Name != newRepoName {
-			isExist, err := models.IsRepositoryExist(ctx.Repo.Owner, newRepoName)
-			if err != nil {
-				ctx.Handle(500, "IsRepositoryExist", err)
-				return
-			} else if isExist {
+			if models.IsRepositoryExist(ctx.Repo.Owner, newRepoName) {
 				ctx.Data["Err_RepoName"] = true
 				ctx.RenderWithErr(ctx.Tr("form.repo_name_been_taken"), SETTINGS_OPTIONS, nil)
 				return
-			} else if err = models.ChangeRepositoryName(ctx.Repo.Owner.Name, ctx.Repo.Repository.Name, newRepoName); err != nil {
+			} else if err := models.ChangeRepositoryName(ctx.Repo.Owner.Name, ctx.Repo.Repository.Name, newRepoName); err != nil {
 				if err == models.ErrRepoNameIllegal {
 					ctx.Data["Err_RepoName"] = true
 					ctx.RenderWithErr(ctx.Tr("form.illegal_repo_name"), SETTINGS_OPTIONS, nil)
@@ -84,7 +79,6 @@ func SettingsPost(ctx *middleware.Context, form auth.RepoSettingForm) {
 		ctx.Repo.Repository.Description = form.Description
 		ctx.Repo.Repository.Website = form.Website
 		ctx.Repo.Repository.IsPrivate = form.Private
-		ctx.Repo.Repository.IsGoget = form.GoGet
 		if err := models.UpdateRepository(ctx.Repo.Repository); err != nil {
 			ctx.Handle(404, "UpdateRepository", err)
 			return
@@ -110,17 +104,25 @@ func SettingsPost(ctx *middleware.Context, form auth.RepoSettingForm) {
 		}
 
 		newOwner := ctx.Query("new_owner_name")
-		isExist, err := models.IsUserExist(newOwner)
+		isExist, err := models.IsUserExist(0, newOwner)
 		if err != nil {
 			ctx.Handle(500, "IsUserExist", err)
 			return
 		} else if !isExist {
 			ctx.RenderWithErr(ctx.Tr("form.enterred_invalid_owner_name"), SETTINGS_OPTIONS, nil)
 			return
-		} else if !ctx.User.ValidtePassword(ctx.Query("password")) {
-			ctx.RenderWithErr(ctx.Tr("form.enterred_invalid_password"), SETTINGS_OPTIONS, nil)
+		}
+
+		if _, err = models.UserSignIn(ctx.User.Name, ctx.Query("password")); err != nil {
+			if err == models.ErrUserNotExist {
+				ctx.RenderWithErr(ctx.Tr("form.enterred_invalid_password"), SETTINGS_OPTIONS, nil)
+			} else {
+				ctx.Handle(500, "UserSignIn", err)
+			}
 			return
-		} else if err = models.TransferOwnership(ctx.User, newOwner, ctx.Repo.Repository); err != nil {
+		}
+
+		if err = models.TransferOwnership(ctx.User, newOwner, ctx.Repo.Repository); err != nil {
 			if err == models.ErrRepoAlreadyExist {
 				ctx.RenderWithErr(ctx.Tr("repo.settings.new_owner_has_same_repo"), SETTINGS_OPTIONS, nil)
 			} else {
@@ -142,15 +144,15 @@ func SettingsPost(ctx *middleware.Context, form auth.RepoSettingForm) {
 				ctx.Error(404)
 				return
 			}
-			if !ctx.User.ValidtePassword(ctx.Query("password")) {
+		}
+
+		if _, err := models.UserSignIn(ctx.User.Name, ctx.Query("password")); err != nil {
+			if err == models.ErrUserNotExist {
 				ctx.RenderWithErr(ctx.Tr("form.enterred_invalid_password"), SETTINGS_OPTIONS, nil)
-				return
+			} else {
+				ctx.Handle(500, "UserSignIn", err)
 			}
-		} else {
-			if !ctx.Repo.Owner.ValidtePassword(ctx.Query("password")) {
-				ctx.RenderWithErr(ctx.Tr("form.enterred_invalid_password"), SETTINGS_OPTIONS, nil)
-				return
-			}
+			return
 		}
 
 		if err := models.DeleteRepository(ctx.Repo.Owner.Id, ctx.Repo.Repository.Id, ctx.Repo.Owner.Name); err != nil {
@@ -170,19 +172,9 @@ func SettingsCollaboration(ctx *middleware.Context) {
 	ctx.Data["Title"] = ctx.Tr("repo.settings")
 	ctx.Data["PageIsSettingsCollaboration"] = true
 
-	repoLink := path.Join(ctx.Repo.Owner.LowerName, ctx.Repo.Repository.LowerName)
-
 	if ctx.Req.Method == "POST" {
 		name := strings.ToLower(ctx.Query("collaborator"))
 		if len(name) == 0 || ctx.Repo.Owner.LowerName == name {
-			ctx.Redirect(setting.AppSubUrl + ctx.Req.URL.Path)
-			return
-		}
-		has, err := models.HasAccess(name, repoLink, models.WRITABLE)
-		if err != nil {
-			ctx.Handle(500, "HasAccess", err)
-			return
-		} else if has {
 			ctx.Redirect(setting.AppSubUrl + ctx.Req.URL.Path)
 			return
 		}
@@ -205,9 +197,8 @@ func SettingsCollaboration(ctx *middleware.Context) {
 			return
 		}
 
-		if err = models.AddAccess(&models.Access{UserName: name, RepoName: repoLink,
-			Mode: models.WRITABLE}); err != nil {
-			ctx.Handle(500, "AddAccess", err)
+		if err = ctx.Repo.Repository.AddCollaborator(u); err != nil {
+			ctx.Handle(500, "AddCollaborator", err)
 			return
 		}
 
@@ -226,50 +217,27 @@ func SettingsCollaboration(ctx *middleware.Context) {
 	// Delete collaborator.
 	remove := strings.ToLower(ctx.Query("remove"))
 	if len(remove) > 0 && remove != ctx.Repo.Owner.LowerName {
-		needDelete := true
-		if ctx.User.IsOrganization() {
-			// Check if user belongs to a team that has access to this repository.
-			auth, err := models.GetHighestAuthorize(ctx.Repo.Owner.Id, ctx.User.Id, ctx.Repo.Repository.Id, 0)
-			if err != nil {
-				ctx.Handle(500, "GetHighestAuthorize", err)
-				return
-			}
-			if auth > 0 {
-				needDelete = false
-			}
+		u, err := models.GetUserByName(remove)
+		if err != nil {
+			ctx.Handle(500, "GetUserByName", err)
+			return
 		}
-
-		if needDelete {
-			if err := models.DeleteAccess(&models.Access{UserName: remove, RepoName: repoLink}); err != nil {
-				ctx.Handle(500, "DeleteAccess", err)
-				return
-			}
+		if err := ctx.Repo.Repository.DeleteCollaborator(u); err != nil {
+			ctx.Handle(500, "DeleteCollaborator", err)
+			return
 		}
 		ctx.Flash.Success(ctx.Tr("repo.settings.remove_collaborator_success"))
 		ctx.Redirect(ctx.Repo.RepoLink + "/settings/collaboration")
 		return
 	}
 
-	names, err := models.GetCollaboratorNames(repoLink)
+	users, err := ctx.Repo.Repository.GetCollaborators()
 	if err != nil {
 		ctx.Handle(500, "GetCollaborators", err)
 		return
 	}
 
-	collaborators := make([]*models.User, 0, len(names))
-	for _, name := range names {
-		u, err := models.GetUserByName(name)
-		if err != nil {
-			ctx.Handle(500, "GetUserByName", err)
-			return
-		}
-		// Does not show organization members.
-		if ctx.Repo.Owner.IsOrganization() && ctx.Repo.Owner.IsOrgMember(u.Id) {
-			continue
-		}
-		collaborators = append(collaborators, u)
-	}
-	ctx.Data["Collaborators"] = collaborators
+	ctx.Data["Collaborators"] = users
 	ctx.HTML(200, COLLABORATION)
 }
 
