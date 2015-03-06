@@ -1,3 +1,10 @@
+gogs (0.5.16-13) unstable; urgency=low
+
+  * New upstream release
+  * Merge with upstream
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Fri, 06 Mar 2015 11:42:54 +0100
+
 gogs (0.5.13-12) unstable; urgency=low
 
   * Default to 'master' branch if it exists for migrations
