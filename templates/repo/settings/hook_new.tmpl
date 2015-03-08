@@ -13,9 +13,7 @@
 	                        <div class="panel-header">
 	                        	<strong>{{if .PageIsSettingsHooksNew}}{{.i18n.Tr "repo.settings.add_webhook"}}{{else}}{{.i18n.Tr "repo.settings.update_webhook"}}{{end}}</strong>
 	                        </div>
-                          {{template "repo/settings/hook_types" .}}
                           {{template "repo/settings/hook_gogs" .}}
-                          {{template "repo/settings/hook_slack" .}}
 	                    </div>
 	                </div>
 	                {{if .PageIsSettingsHooksEdit}}

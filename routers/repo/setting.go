@@ -267,17 +267,13 @@ func Webhooks(ctx *middleware.Context) {
 	ctx.HTML(200, HOOKS)
 }
 
-func renderHookTypes(ctx *middleware.Context) {
-	ctx.Data["HookTypes"] = []string{"Gogs", "Slack"}
-	ctx.Data["HookType"] = "Gogs"
-}
 
 func WebHooksNew(ctx *middleware.Context) {
 	ctx.Data["Title"] = ctx.Tr("repo.settings")
 	ctx.Data["PageIsSettingsHooks"] = true
 	ctx.Data["PageIsSettingsHooksNew"] = true
 	ctx.Data["Webhook"] = models.Webhook{HookEvent: &models.HookEvent{}}
-	renderHookTypes(ctx)
+	ctx.Data["HookType"] = "Gogs"
 	orCtx, err := getOrgRepoCtx(ctx)
 	if err != nil {
 		ctx.Handle(500, "WebHooksNew(getOrgRepoCtx)", err)
