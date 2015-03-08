@@ -1,3 +1,9 @@
+gogs (0.5.16-4) unstable; urgency=low
+
+  * Allow hiding of email addresses by users
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Sun, 08 Mar 2015 20:35:22 +0100
+
 gogs (0.5.16-3) unstable; urgency=low
 
   * Fix email sending process
