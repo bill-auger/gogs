@@ -77,12 +77,13 @@ func (f *SignInForm) Validate(ctx *macaron.Context, errs binding.Errors) binding
 //         \/         \/                                   \/        \/        \/
 
 type UpdateProfileForm struct {
-	UserName string `form:"uname" binding:"Required;MaxSize(35)"`
-	FullName string `form:"fullname" binding:"MaxSize(100)"`
-	Email    string `form:"email" binding:"Required;Email;MaxSize(50)"`
-	Website  string `form:"website" binding:"Url;MaxSize(100)"`
-	Location string `form:"location" binding:"MaxSize(50)"`
-	Avatar   string `form:"avatar" binding:"Required;Email;MaxSize(50)"`
+	UserName  string `form:"uname" binding:"Required;MaxSize(35)"`
+	FullName  string `form:"fullname" binding:"MaxSize(100)"`
+	Email     string `form:"email" binding:"Required;Email;MaxSize(50)"`
+	HideEmail bool `form:"hideemail"`
+	Website   string `form:"website" binding:"Url;MaxSize(100)"`
+	Location  string `form:"location" binding:"MaxSize(50)"`
+	Avatar    string `form:"avatar" binding:"Required;Email;MaxSize(50)"`
 }
 
 func (f *UpdateProfileForm) Validate(ctx *macaron.Context, errs binding.Errors) binding.Errors {

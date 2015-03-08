@@ -76,6 +76,7 @@ func SettingsPost(ctx *middleware.Context, form auth.UpdateProfileForm) {
 
 	ctx.User.FullName = form.FullName
 	ctx.User.Email = form.Email
+	ctx.User.HideEmail = form.HideEmail
 	ctx.User.Website = form.Website
 	ctx.User.Location = form.Location
 	ctx.User.Avatar = base.EncodeMd5(form.Avatar)

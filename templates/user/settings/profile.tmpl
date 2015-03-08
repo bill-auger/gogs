@@ -39,6 +39,10 @@
                                     <input class="ipt ipt-large ipt-radius {{if .Err_Email}}ipt-error{{end}}" id="email" name="email" type="email" value="{{.SignedUser.Email}}" required />
                                 </div>
                                 <div class="field">
+                                    <label for="hideemail">Hide E-mail address</label>
+                                    <input class="ipt-chk" id="hideemail" name="hideemail" type="checkbox" {{if .SignedUser.HideEmail}}checked{{end}} />
+                                </div>
+                                <div class="field">
                                     <label for="website">{{.i18n.Tr "settings.website"}}</label>
                                     <input class="ipt ipt-large ipt-radius {{if .Err_Website}}ipt-error{{end}}" id="website" name="website" type="url" value="{{.SignedUser.Website}}" />
                                 </div>

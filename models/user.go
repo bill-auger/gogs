@@ -58,6 +58,7 @@ type User struct {
 	FullName  string
 	// Email is the primary email address (to be used for communication).
 	Email       string `xorm:"UNIQUE(s) NOT NULL"`
+	HideEmail   bool
 	Passwd      string `xorm:"NOT NULL"`
 	LoginType   LoginType
 	LoginSource int64 `xorm:"NOT NULL DEFAULT 0"`
