@@ -1,3 +1,9 @@
+gogs (0.5.16-3) unstable; urgency=low
+
+  * Fix email sending process
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Sun, 08 Mar 2015 19:05:13 +0100
+
 gogs (0.5.16-2) unstable; urgency=low
 
   * Merge with upstream
