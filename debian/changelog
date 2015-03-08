@@ -1,3 +1,10 @@
+gogs (0.5.16-2) unstable; urgency=low
+
+  * Merge with upstream
+  * Remove 'slack' webhook type
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Sun, 08 Mar 2015 15:58:09 +0100
+
 gogs (0.5.16-1) unstable; urgency=low
 
   * New upstream release
