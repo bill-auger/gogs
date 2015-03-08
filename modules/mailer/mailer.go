@@ -7,6 +7,7 @@ package mailer
 import (
 	"crypto/tls"
 	"fmt"
+	"time"
 	"net"
 	"net/mail"
 	"net/smtp"
@@ -35,8 +36,14 @@ func (m Message) Content() string {
 		contentType = "text/html; charset=UTF-8"
 	}
 
+	// get and format current time for email headers
+	date := time.Now().Format(time.RFC1123Z)
+
+	// generate a message-id for the email
+	messageid := fmt.Sprintf("%v@%s", time.Now().UnixNano(), setting.Domain)
+
 	// create mail content
-	content := "From: " + m.From + "\r\nSubject: " + m.Subject + "\r\nContent-Type: " + contentType + "\r\n\r\n" + m.Body
+	content := "From: " + m.From + "\r\nMessage-Id: " + messageid + "\r\nDate: " + date + "\r\nSubject: " + m.Subject + "\r\nContent-Type: " + contentType + "\r\n\r\n" + m.Body
 	return content
 }
 
