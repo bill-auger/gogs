@@ -1,0 +1,48 @@
+{{template "ng/base/head" .}}
+{{template "ng/base/header" .}}
+<div id="setting-wrapper" class="main-wrapper">
+    <div id="org-setting" class="container clear">
+	<div id="setting-menu" class="grid-1-5 panel panel-radius left">
+	    <p class="panel-header"><strong>About</strong></p>
+	    <div class="panel-body">
+		<ul class="menu menu-vertical switching-list grid-1-5 left">
+		    <li><a href="{{AppSubUrl}}/about#whatisnotabug">What is NotABug.org</a></li>
+		    <li><a href="{{AppSubUrl}}/about#whoweare">Who we are</a></li>
+		    <li><a href="{{AppSubUrl}}/about#contactus">Contact us</a></li>
+		</ul>
+	    </div>
+	</div>
+        <div class="grid-4-5 left">
+             <div class="setting-content">
+		<a name="whatisnotabug"></a>
+		<h1> What is NotABug.org</h1>
+		<p>NotABug.org is a <a href="https://www.gnu.org/philosophy/free-sw.html">free-software</a> code collaboration platform for freely licened projects. We exist to help projets that distribute under any free license. Including, but not limited to:
+		<ul>
+			<li><a href="http://www.gnu.org/licenses/agpl-3.0.html">The GNU Affero general public license</a></li>
+			<li><a href="http://www.gnu.org/copyleft/gpl.html">The GNU General public license</a></li>
+			<li><a href="http://www.gnu.org/copyleft/lgpl.html">The Lesser GNU General public license</a></li>
+			<li><a href="http://www.apache.org/licenses/LICENSE-2.0">The Apache license</a></li>
+			<li><a href="http://opensource.org/licenses/BSD-2-Clause">The two clause BSD license</a></li>
+			<li><a href="http://opensource.org/licenses/BSD-3-Clause">The three clause BSD license</a></li>
+			<li><a href="http://opensource.org/licenses/MIT">The MIT license</a></li></p>
+		</ul>
+		And other licenses that meet the <a href="https://www.gnu.org/philosophy/free-sw.html">Free software definition</a></p>
+		<p>NotABug.org is based on the <a href="http://gogs.io/">Gogs</a> MIT licensed code collaboration platform. The version we run is always available <a href="https://notabug.org/hp/gogs">here</a> on the master branch. </p>
+		<br>
+		<a name="whoweare"></a>
+		<h1> Who we are </h1>
+		<p> NotABug.org is ran by <a href="http://peers.community/">Peers</a> a loosly-knit group of people interested in free software and free society. We help each other where we can. NotABug.org is currently primarily administed by <a href="http://tmm.cx">Hein-Pieter van Braam</a> &lt;<a href="mailto:hp@notabug.org">hp@notabug.org</a>&gt;</p>
+		<br>
+		<a name="contactus"></a>
+		<h1> Contact us </h1>
+		<p> <ul>
+			<li>NotABug.org community on freepo.st: <a href="http://freepo.st/community/NotABug.org">http://freepo.st/community/NotABug.org</a></li>
+			<li>Peers.community email: <a href="http://peers.community">Front desk</a> &lt;<a href="mailto:contact@peers.community">contact@peers.community</a>&gt;</p></li>
+			<li>Administrator email: <a href="http://tmm.cx">Hein-Pieter van Braam</a> &lt;<a href="mailto:hp@notabug.org">hp@notabug.org</a>&gt;</li>
+			<li>Peers.community notabug.org lead: Zplus &lt;<a href="mailto:zplus@peers.community">zplus@peers.community</a>&gt;</li>
+		</ul></p>
+             </div>
+        </div>
+    </div>
+</div>
+{{template "ng/base/footer" .}}

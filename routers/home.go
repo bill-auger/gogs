@@ -18,6 +18,8 @@ const (
 	HOME          base.TplName = "home"
 	EXPLORE_REPOS base.TplName = "explore/repos"
 	HELP          base.TplName = "help"
+	ABOUT         base.TplName = "about"
+	TOS           base.TplName = "tos"
 )
 
 func Home(ctx *middleware.Context) {
@@ -71,6 +73,18 @@ func Help(ctx *middleware.Context) {
 	ctx.Data["Title"] = ctx.Tr("help")
 
 	ctx.HTML(200, HELP)
+}
+
+func About(ctx *middleware.Context) {
+	ctx.Data["Title"] = ctx.Tr("about")
+
+	ctx.HTML(200, ABOUT)
+}
+
+func Tos(ctx *middleware.Context) {
+	ctx.Data["Title"] = ctx.Tr("tos")
+
+	ctx.HTML(200, TOS)
 }
 
 func NotFound(ctx *middleware.Context) {
