@@ -1,3 +1,9 @@
+gogs (0.5.16-6) unstable; urgency=low
+
+  * Add 'about' page to footer too
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Wed, 11 Mar 2015 23:36:01 +0100
+
 gogs (0.5.16-5) unstable; urgency=low
 
   * Add 'about' page
