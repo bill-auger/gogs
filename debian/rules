@@ -21,9 +21,9 @@ binary-arch: clean
 	dh_installdirs
 	# Work around internal gogs package names
 	mkdir -p $(GOPATH)/src/github.com/gogits/
-	rm -f $(GOPATH)/src/github.com/gogits/gogs
-	ln -s $(CURDIR) $(GOPATH)/src/github.com/gogits/gogs
 	go get -d
+	rm -rf $(GOPATH)/src/github.com/gogits/gogs
+	ln -s $(CURDIR) $(GOPATH)/src/github.com/gogits/gogs
 	go build
 	mkdir -p $(PKGDIR)/DEBIAN
 	mkdir -p $(PKGDIR)/opt/gogs
