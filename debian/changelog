@@ -1,8 +1,8 @@
 gogs (0.5.16-6) unstable; urgency=low
 
-  * Add 'about' page to footer too
+  * Fix typos on about page
 
- -- Hein-Pieter van Braam <hp@tmm.cx>  Wed, 11 Mar 2015 23:36:01 +0100
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Thu, 12 Mar 2015 09:12:16 +0100
 
 gogs (0.5.16-5) unstable; urgency=low
 
