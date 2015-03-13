@@ -20,6 +20,7 @@ const (
 	HELP          base.TplName = "help"
 	ABOUT         base.TplName = "about"
 	TOS           base.TplName = "tos"
+	OUTAGES       base.TplName = "outages"
 )
 
 func Home(ctx *middleware.Context) {
@@ -85,6 +86,12 @@ func Tos(ctx *middleware.Context) {
 	ctx.Data["Title"] = ctx.Tr("tos")
 
 	ctx.HTML(200, TOS)
+}
+
+func Outages(ctx *middleware.Context) {
+	ctx.Data["Title"] = ctx.Tr("outages")
+
+	ctx.HTML(200, OUTAGES)
 }
 
 func NotFound(ctx *middleware.Context) {

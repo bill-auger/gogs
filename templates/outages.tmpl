@@ -1,0 +1,42 @@
+{{template "ng/base/head" .}}
+{{template "ng/base/header" .}}
+<div id="setting-wrapper" class="main-wrapper">
+    <div id="org-setting" class="container clear">
+	<div id="setting-menu" class="grid-1-5 panel panel-radius left">
+	    <p class="panel-header"><strong>About</strong></p>
+	    <div class="panel-body">
+		<ul class="menu menu-vertical switching-list grid-1-5 left">
+		    <li><a href="{{AppSubUrl}}/outages#about">About this page</a></li>
+		    <li><a href="{{AppSubUrl}}/outages#2015-03-12">2015-03-12</a></li>
+		</ul>
+	    </div>
+	</div>
+        <div class="grid-4-5 left">
+             <div class="setting-content">
+		<a name="about"></a>
+		<h1>About this page</h1>
+		<p>Occasionally you'll see <a href="{{AppSubUrl}}/error/error.html">this</a> fellow on your visit to our site. Whenever this happens we've made a mistake. This page is here to help you understand what went wrong and (hopefully) give you a sense that we're constantly improving. If you find any problems using the site please report a bug <a href="{{AppSubUrl}}/hp/gogs/issues">here</a></p>
+		<p>We hope you won't have to refer to this page too often. :)</p>
+		<br>
+		<a name="2015-03-12"></a>
+		<h1>2015-03-12</h1>
+		<h2> What happened </h2>
+		<p> NotABug.org web front-end was down between 17:00 and 18:00 CEST. It was impossible to view any of the NotABug.org web content. Git pulls and pushes were unaffected.</p>
+		<br>
+		<h2> What caused it </h2>
+		<p> We currently believe that a bad merge of one of Gogs' dependencies caused a problem with the application. Additionally the only person who could fix it was off at a party and there was no monitoring. Additionally the error page offered no recourse making it seem like we had just gone away.</p>
+		<br>
+		<h2> How has this been addressed </h2>
+		<p> <ul>
+			<li> The dependencies of Gogs were reverted to known-good versions. </li>
+			<li> More people were given access to troubleshoot the Gogs instance for NotABug.org. </li>
+			<li> Basic monitoring was put in place which will be improved in the future. </li>
+			<li> A better error page was created with contact information. </li>
+		</ul>
+		</p>
+		<br>
+             </div>
+        </div>
+    </div>
+</div>
+{{template "ng/base/footer" .}}
