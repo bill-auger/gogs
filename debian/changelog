@@ -1,3 +1,9 @@
+gogs (0.5.16-12) unstable; urgency=low
+
+  * Merge with upstream
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Sun, 15 Mar 2015 23:49:56 +0100
+
 gogs (0.5.16-11) unstable; urgency=low
 
   * Add outages page
