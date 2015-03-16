@@ -35,7 +35,6 @@ const (
 
 var (
 	ErrRepoAlreadyExist  = errors.New("Repository already exist")
-	ErrRepoNotExist      = errors.New("Repository does not exist")
 	ErrRepoFileNotExist  = errors.New("Repository file does not exist")
 	ErrRepoNameIllegal   = errors.New("Repository name contains illegal characters")
 	ErrRepoFileNotLoaded = errors.New("Repository file not loaded")
@@ -348,7 +347,7 @@ func MigrateRepository(u *User, name, desc string, private, mirror bool, url str
 			return repo, err
 		}
 		repo.IsMirror = true
-		return repo, UpdateRepository(repo)
+		return repo, UpdateRepository(repo, false)
 	} else {
 		os.RemoveAll(repoPath)
 	}
@@ -369,7 +368,7 @@ func MigrateRepository(u *User, name, desc string, private, mirror bool, url str
 		repo.DefaultBranch = "master"
 	}
 
-	return repo, UpdateRepository(repo)
+	return repo, UpdateRepository(repo, false)
 }
 
 // extractGitBareZip extracts git-bare.zip to repository path.
@@ -508,7 +507,7 @@ func initRepository(e Engine, f string, u *User, repo *Repository, initReadme bo
 		}
 		repo.IsBare = true
 		repo.DefaultBranch = "master"
-		return updateRepository(e, repo)
+		return updateRepository(e, repo, false)
 	}
 
 	// Apply changes and commit.
@@ -740,7 +739,7 @@ func ChangeRepositoryName(userName, oldRepoName, newRepoName string) (err error)
 	return os.Rename(RepoPath(userName, oldRepoName), RepoPath(userName, newRepoName))
 }
 
-func updateRepository(e Engine, repo *Repository) error {
+func updateRepository(e Engine, repo *Repository, visibilityChanged bool) (err error) {
 	repo.LowerName = strings.ToLower(repo.Name)
 
 	if len(repo.Description) > 255 {
@@ -749,12 +748,40 @@ func updateRepository(e Engine, repo *Repository) error {
 	if len(repo.Website) > 255 {
 		repo.Website = repo.Website[:255]
 	}
-	_, err := e.Id(repo.Id).AllCols().Update(repo)
-	return err
+
+	if _, err = e.Id(repo.Id).AllCols().Update(repo); err != nil {
+		return fmt.Errorf("update: %v", err)
+	}
+
+	if visibilityChanged {
+		if err = repo.getOwner(e); err != nil {
+			return fmt.Errorf("getOwner: %v", err)
+		}
+		if !repo.Owner.IsOrganization() {
+			return nil
+		}
+
+		// Organization repository need to recalculate access table when visivility is changed.
+		if err = repo.recalculateTeamAccesses(e, 0); err != nil {
+			return fmt.Errorf("recalculateTeamAccesses: %v", err)
+		}
+	}
+
+	return nil
 }
 
-func UpdateRepository(repo *Repository) error {
-	return updateRepository(x, repo)
+func UpdateRepository(repo *Repository, visibilityChanged bool) (err error) {
+	sess := x.NewSession()
+	defer sessionRelease(sess)
+	if err = sess.Begin(); err != nil {
+		return err
+	}
+
+	if err = updateRepository(x, repo, visibilityChanged); err != nil {
+		return fmt.Errorf("updateRepository: %v", err)
+	}
+
+	return sess.Commit()
 }
 
 // DeleteRepository deletes a repository for a user or organization.
@@ -764,7 +791,7 @@ func DeleteRepository(uid, repoID int64, userName string) error {
 	if err != nil {
 		return err
 	} else if !has {
-		return ErrRepoNotExist
+		return ErrRepoNotExist{repoID, uid, ""}
 	}
 
 	// In case is a organization.
@@ -881,18 +908,18 @@ func GetRepositoryByName(uid int64, repoName string) (*Repository, error) {
 	if err != nil {
 		return nil, err
 	} else if !has {
-		return nil, ErrRepoNotExist
+		return nil, ErrRepoNotExist{0, uid, repoName}
 	}
 	return repo, err
 }
 
 func getRepositoryById(e Engine, id int64) (*Repository, error) {
-	repo := &Repository{}
+	repo := new(Repository)
 	has, err := e.Id(id).Get(repo)
 	if err != nil {
 		return nil, err
 	} else if !has {
-		return nil, ErrRepoNotExist
+		return nil, ErrRepoNotExist{id, 0, ""}
 	}
 	return repo, nil
 }
