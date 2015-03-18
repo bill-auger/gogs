@@ -165,8 +165,7 @@ func WorkDir() (string, error) {
 
 func forcePathSeparator(path string) {
 	if strings.Contains(path, "\\") {
-		fmt.Println("Do not use '\\' or '\\\\' in paths, instead, please use '/' in all places")
-		os.Exit(1)
+		log.Fatal(4, "Do not use '\\' or '\\\\' in paths, instead, please use '/' in all places")
 	}
 }
 
