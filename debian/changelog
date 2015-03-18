@@ -1,3 +1,9 @@
+gogs (0.6.0-1) unstable; urgency=low
+
+  * Merge with upstream (0.6.0 release)
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Wed, 18 Mar 2015 18:50:00 +0100
+
 gogs (0.5.16-15) unstable; urgency=low
 
   * Merge with upstream (Security problem with password changes)
