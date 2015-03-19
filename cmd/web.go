@@ -73,7 +73,7 @@ func checkVersion() {
 	if err != nil {
 		log.Fatal(4, "Fail to read 'templates/.VERSION': %v", err)
 	}
-	if string(data) != setting.AppVer {
+	if strings.TrimSpace(string(data)) != setting.AppVer {
 		log.Fatal(4, "Binary and template file version does not match, did you forget to recompile?")
 	}
 
