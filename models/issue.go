@@ -58,7 +58,7 @@ type Issue struct {
 func (i *Issue) GetPoster() (err error) {
 	i.Poster, err = GetUserById(i.PosterId)
 	if err == ErrUserNotExist {
-		i.Poster = &User{Name: "FakeUser"}
+		i.Poster = &User{Name: "DeletedUser"}
 		return nil
 	}
 	return err

@@ -419,8 +419,7 @@ func ViewIssue(ctx *middleware.Context) {
 	for i := range comments {
 		u, err := models.GetUserById(comments[i].PosterId)
 		if err != nil {
-			ctx.Handle(500, "issue.ViewIssue(GetUserById.2): %v", err)
-			return
+			u = &models.User{Name: "DeletedUser"}
 		}
 		comments[i].Poster = u
 

@@ -253,7 +253,7 @@ func (repo *Repository) CloneLink() (cl CloneLink, err error) {
 }
 
 var (
-	illegalEquals  = []string{"debug", "raw", "install", "api", "avatar", "user", "org", "help", "stars", "issues", "pulls", "commits", "repo", "template", "admin", "new", "about", "tos", "error", "outages" }
+	illegalEquals  = []string{"debug", "raw", "install", "api", "avatar", "user", "org", "help", "stars", "issues", "pulls", "commits", "repo", "template", "admin", "new", "about", "tos", "error", "outages", "DeletedUser" }
 	illegalSuffixs = []string{".git", ".keys"}
 )
 
