@@ -1,3 +1,9 @@
+gogs (0.6.0-3) unstable; urgency=low
+
+  * Fix https://notabug.org/hp/gogs/issues/31
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Fri, 20 Mar 2015 11:06:31 +0100
+
 gogs (0.6.0-2) unstable; urgency=low
 
   * Merge with upstream 
