@@ -123,6 +123,9 @@ func (c *Commit) GetSubModules() (map[string]*SubModule, error) {
 			k := strings.TrimSpace(fields[0])
 			if k == "path" {
 				path = strings.TrimSpace(fields[1])
+				if ! strings.HasSuffix(path, "/") {
+					path += "/"
+				}
 			} else if k == "url" {
 				c.submodules[path] = &SubModule{path, strings.TrimSpace(fields[1])}
 				ismodule = false
