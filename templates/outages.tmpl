@@ -7,6 +7,7 @@
 	    <div class="panel-body">
 		<ul class="menu menu-vertical switching-list grid-1-5 left">
 		    <li><a href="{{AppSubUrl}}/outages#about">About this page</a></li>
+		    <li><a href="{{AppSubUrl}}/outages#2015-04-17">2015-04-17</a></li>
 		    <li><a href="{{AppSubUrl}}/outages#2015-03-12">2015-03-12</a></li>
 		</ul>
 	    </div>
@@ -17,6 +18,21 @@
 		<h1>About this page</h1>
 		<p>Occasionally you'll see <a href="{{AppSubUrl}}/error/error.html">this</a> fellow on your visit to our site. Whenever this happens we've made a mistake. This page is here to help you understand what went wrong and (hopefully) give you a sense that we're constantly improving. If you find any problems using the site please report a bug <a href="{{AppSubUrl}}/hp/gogs/issues">here</a></p>
 		<p>We hope you won't have to refer to this page too often. :)</p>
+		<br>
+		<a name="2015-04-17"></a>
+		<h1>2015-04-17</h1>
+		<h2> What happened </h2>
+		<p> NotABug.org web front-end was down between 17:00 and 19:00 CEST. It was impossible to view any of the NotABug.org web content. Git pulls and pushes were unaffected.</p>
+		<br>
+		<h2> What caused it </h2>
+		<p> The Gogs software crashed and the monitoring software responsible for restarting it automatically was faulty causing a restart loop.</p>
+		<br>
+		<h2> How has this been addressed </h2>
+		<p> <ul>
+			<li> The monitoring software has been adjusted such that a restart loop should be less likely.</li>
+			<li> Investigations are ongoing to find the root cause of the crash. </li>
+		</ul>
+		</p>
 		<br>
 		<a name="2015-03-12"></a>
 		<h1>2015-03-12</h1>

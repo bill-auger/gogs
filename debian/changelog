@@ -1,3 +1,9 @@
+gogs (0.6.1-4) unstable; urgency=low
+
+  * Updated outages page for 17-04
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Sun, 19 Apr 2015 19:46:47 +0200
+
 gogs (0.6.1-3) unstable; urgency=low
 
   * Easter is over...
