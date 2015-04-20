@@ -7,6 +7,7 @@
 	    <div class="panel-body">
 		<ul class="menu menu-vertical switching-list grid-1-5 left">
 		    <li><a href="{{AppSubUrl}}/outages#about">About this page</a></li>
+		    <li><a href="{{AppSubUrl}}/outages#2015-04-20">2015-04-20</a></li>
 		    <li><a href="{{AppSubUrl}}/outages#2015-04-17">2015-04-17</a></li>
 		    <li><a href="{{AppSubUrl}}/outages#2015-03-12">2015-03-12</a></li>
 		</ul>
@@ -18,6 +19,20 @@
 		<h1>About this page</h1>
 		<p>Occasionally you'll see <a href="{{AppSubUrl}}/error/error.html">this</a> fellow on your visit to our site. Whenever this happens we've made a mistake. This page is here to help you understand what went wrong and (hopefully) give you a sense that we're constantly improving. If you find any problems using the site please report a bug <a href="{{AppSubUrl}}/hp/gogs/issues">here</a></p>
 		<p>We hope you won't have to refer to this page too often. :)</p>
+		<br>
+		<a name="2015-04-20"></a>
+		<h1>2015-04-20</h1>
+		<h2> What happened </h2>
+		<p> NotABug.org web front-end was down between 19:00 and 19:30 CEST. It was impossible to view any of the NotABug.org web content. Git pulls and pushes were unaffected.</p>
+		<br>
+		<h2> What caused it </h2>
+		<p> The Gogs software crashed and the monitoring software responsible for restarting it automatically was still faulty. We now know that the problem was that the gogs daemon expects to be able to read the current userid from the $USER environment variable. This only works if the init script is started with the shell runing in bash mode. The init script was called with /bin/sh when running non-interactively (during startup and during the monitor cron job). </p>
+		<br>
+		<h2> How has this been addressed </h2>
+		<p> <ul>
+			<li> The init script has been adjusted such that it explicitly sets the $USER variable. </li>
+		</ul>
+		</p>
 		<br>
 		<a name="2015-04-17"></a>
 		<h1>2015-04-17</h1>
