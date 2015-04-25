@@ -25,6 +25,10 @@ SCRIPTNAME=/etc/init.d/$NAME
 # To work around an issue with /opt/gogs/gogs
 export USER
 
+# We use a newer version of go now
+LD_LIBRARY_PATH=/opt/gcc-5.1.0
+export LD_LIBRARY_PATH
+
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0
 

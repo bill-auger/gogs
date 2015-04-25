@@ -1,7 +1,14 @@
+gogs (0.6.1-8) unstable; urgency=low
+
+  * Make sure gogs can find the gcc-5.1.0 go runtime
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Sat, 25 Apr 2015 14:14:07 +0200
+
 gogs (0.6.1-7) unstable; urgency=low
 
   * Rebuild with GCC 5.1.0
   * King's day spider!
+  * Merge with upstream
 
  -- Hein-Pieter van Braam <hp@tmm.cx>  Sat, 25 Apr 2015 14:02:27 +0200
 
