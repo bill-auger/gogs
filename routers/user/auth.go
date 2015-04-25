@@ -8,8 +8,6 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/macaron-contrib/captcha"
-
 	"github.com/gogits/gogs/models"
 	"github.com/gogits/gogs/modules/auth"
 	"github.com/gogits/gogs/modules/base"
@@ -192,7 +190,7 @@ func SignUp(ctx *middleware.Context) {
 	ctx.HTML(200, SIGNUP)
 }
 
-func SignUpPost(ctx *middleware.Context, cpt *captcha.Captcha, form auth.RegisterForm) {
+func SignUpPost(ctx *middleware.Context, form auth.RegisterForm) {
 	ctx.Data["Title"] = ctx.Tr("sign_up")
 
 	if setting.Service.DisableRegistration {
@@ -231,11 +229,7 @@ func SignUpPost(ctx *middleware.Context, cpt *captcha.Captcha, form auth.Registe
 		return
 	}
 
-	if !cpt.VerifyReq(ctx.Req) {
-		ctx.Data["Err_Captcha"] = true
-		ctx.RenderWithErr(ctx.Tr("form.captcha_incorrect"), SIGNUP, &form)
-		return
-	} else if form.Password != form.Retype {
+	if form.Password != form.Retype {
 		ctx.Data["Err_Password"] = true
 		ctx.RenderWithErr(ctx.Tr("form.password_not_match"), SIGNUP, &form)
 		return
