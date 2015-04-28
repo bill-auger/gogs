@@ -1,3 +1,9 @@
+gogs (0.6.1-11) unstable; urgency=low
+
+  * No more holiday spider for now
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Tue, 28 Apr 2015 09:17:35 +0200
+
 gogs (0.6.1-10) unstable; urgency=low
 
   * Explain holiday spiders
