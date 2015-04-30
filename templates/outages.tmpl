@@ -7,6 +7,7 @@
 	    <div class="panel-body">
 		<ul class="menu menu-vertical switching-list grid-1-5 left">
 		    <li><a href="{{AppSubUrl}}/outages#about">About this page</a></li>
+		    <li><a href="{{AppSubUrl}}/outages#2015-04-30">2015-04-30</a></li>
 		    <li><a href="{{AppSubUrl}}/outages#2015-04-20">2015-04-20</a></li>
 		    <li><a href="{{AppSubUrl}}/outages#2015-04-17">2015-04-17</a></li>
 		    <li><a href="{{AppSubUrl}}/outages#2015-03-12">2015-03-12</a></li>
@@ -19,6 +20,21 @@
 		<h1>About this page</h1>
 		<p>Occasionally you'll see <a href="{{AppSubUrl}}/error/error.html">this</a> fellow on your visit to our site. Whenever this happens we've made a mistake. This page is here to help you understand what went wrong and (hopefully) give you a sense that we're constantly improving. If you find any problems using the site please report a bug <a href="{{AppSubUrl}}/hp/gogs/issues">here</a></p>
 		<p>We hope you won't have to refer to this page too often. :)</p>
+		<br>
+		<a name="2015-04-30"></a>
+		<h1>2015-04-30</h1>
+		<h2> What happened </h2>
+		<p> NotABug.org web front-end was down between 00:40 and 8:40 CEST. It was impossible to view any of the NotABug.org web content. Git pulls and pushes were only possible intermittendly.</p>
+		<br>
+		<h2> What caused it </h2>
+		<p> There were many stale git processes (Gogs forks git processes on user requests) and it ran out of memory. Gogs was successfully restarted by the monitoring scripts but Gogs left a lockfile it did not clean up itself. In addition, due to the many failed restarts the MySQL server ran out of connections for Gogs making recovery take even longer.</p>
+		<br>
+		<h2> How has this been addressed </h2>
+		<p> <ul>
+			<li> The init script has been adjusted so that it removes the offending lockfile when necessary. </li>
+			<li> Scripts were written that monitor the amount of stale Git processes and attempts to kill them after a timeout is reached. </li>
+		</ul>
+		</p>
 		<br>
 		<a name="2015-04-20"></a>
 		<h1>2015-04-20</h1>

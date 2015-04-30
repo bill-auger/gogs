@@ -1,3 +1,9 @@
+gogs (0.6.1-12) unstable; urgency=low
+
+  * Explain outage of 30-04-2015
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Thu, 30 Apr 2015 09:37:27 +0200
+
 gogs (0.6.1-11) unstable; urgency=low
 
   * No more holiday spider for now
