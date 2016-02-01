@@ -18,7 +18,7 @@ import (
 // ToApiUser converts user to API format.
 func ToApiUser(u *models.User) *api.User {
 	return &api.User{
-		Id:        u.Id,
+		ID:        u.Id,
 		UserName:  u.Name,
 		AvatarUrl: string(setting.Protocol) + u.AvatarLink(),
 	}

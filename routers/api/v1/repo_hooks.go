@@ -26,7 +26,7 @@ func ListRepoHooks(ctx *middleware.Context) {
 	apiHooks := make([]*api.Hook, len(hooks))
 	for i := range hooks {
 		h := &api.Hook{
-			Id:     hooks[i].Id,
+			ID:     hooks[i].Id,
 			Type:   hooks[i].HookTaskType.Name(),
 			Active: hooks[i].IsActive,
 			Config: make(map[string]string),
@@ -102,7 +102,7 @@ func CreateRepoHook(ctx *middleware.Context, form api.CreateHookOption) {
 	}
 
 	apiHook := &api.Hook{
-		Id:     w.Id,
+		ID:     w.Id,
 		Type:   w.HookTaskType.Name(),
 		Events: []string{"push"},
 		Active: w.IsActive,

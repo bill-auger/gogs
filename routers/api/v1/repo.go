@@ -102,7 +102,7 @@ func SearchRepos(ctx *middleware.Context) {
 
 func createRepo(ctx *middleware.Context, owner *models.User, opt api.CreateRepoOption) {
 	repo, err := models.CreateRepository(owner, opt.Name, opt.Description,
-		opt.Gitignore, opt.License, opt.Private, false, opt.AutoInit)
+		opt.Gitignores, opt.License, opt.Private, false, opt.AutoInit)
 	if err != nil {
 		if err == models.ErrRepoAlreadyExist ||
 			err == models.ErrRepoNameIllegal {

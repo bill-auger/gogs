@@ -2,13 +2,13 @@ Source: gogs
 Section: devel
 Priority: extra
 Maintainer: Hein-Pieter van Braam <hp@tmm.cx>
-Build-Depends: debhelper (>= 7.0.50~), gccgo, gccgo-go
+Build-Depends: debhelper (>= 7.0.50~), golang
 Standards-Version: 3.9.1
 Homepage: http://gogs.io/
 
 Package: gogs
 Architecture: amd64
-Depends: ${misc:Depends}, libgo5, git
+Depends: ${misc:Depends}, golang, git
 Description: Gogs A self-hosted Git service written in Go
  The goal of this project is to make the easiest, fastest and most painless way
  to set up a self-hosted Git service. With Go, this can be done in independent
