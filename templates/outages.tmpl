@@ -7,6 +7,8 @@
 	    <div class="panel-body">
 		<ul class="menu menu-vertical switching-list grid-1-5 left">
 		    <li><a href="{{AppSubUrl}}/outages#about">About this page</a></li>
+		    <li><a href="{{AppSubUrl}}/outages#2016-01-31">2015-04-30</a></li>
+		    <li><a href="{{AppSubUrl}}/outages#2015-07-18">2015-07-18</a></li>
 		    <li><a href="{{AppSubUrl}}/outages#2015-04-30">2015-04-30</a></li>
 		    <li><a href="{{AppSubUrl}}/outages#2015-04-20">2015-04-20</a></li>
 		    <li><a href="{{AppSubUrl}}/outages#2015-04-17">2015-04-17</a></li>
@@ -21,20 +23,41 @@
 		<p>Occasionally you'll see <a href="{{AppSubUrl}}/error/error.html">this</a> fellow on your visit to our site. Whenever this happens we've made a mistake. This page is here to help you understand what went wrong and (hopefully) give you a sense that we're constantly improving. If you find any problems using the site please report a bug <a href="{{AppSubUrl}}/hp/gogs/issues">here</a></p>
 		<p>We hope you won't have to refer to this page too often. :)</p>
 		<br>
-		<a name="2015-04-30"></a>
-		<h1>2015-04-30</h1>
+		<a name="2016-01-31"></a>
+		<h1>2016-01-31</h1>
 		<h2> What happened </h2>
-		<p> NotABug.org web front-end was down between 00:40 and 8:40 CEST. It was impossible to view any of the NotABug.org web content. Git pulls and pushes were only possible intermittendly.</p>
+		<p> NotABug.org was completey unreachable for most of the 31st of January and the 1st of February. The frontend was not reachable, git pulls and pushes were not possible.</p>
 		<br>
 		<h2> What caused it </h2>
-		<p> There were many stale git processes (Gogs forks git processes on user requests) and it ran out of memory. Gogs was successfully restarted by the monitoring scripts but Gogs left a lockfile it did not clean up itself. In addition, due to the many failed restarts the MySQL server ran out of connections for Gogs making recovery take even longer.</p>
+		<p> Due to a drive failure in the array the filesystem housing the Git repositories went in read-only mode. During recovery of the situation a admin-error accidentally deleted the root filesystems of both the hypervisor and the NotABug.org VM. Due to this error the SSH key of the server was changed. The new fingerprints are:
+                <ul>
+			<li> 1024 SHA256:3Gfd/hCr2FAnV34U/LKO93m14yD7JnJOfZPub2sK7No (DSA) </li>
+			<li> 256  SHA256:tv7X1j2jOYPgztNC+3KYh2E751I01Y7vHWS83uax8jQ (ECDSA) </li>
+			<li> 256  SHA256:BtR8pJSuIPDCUT5DJ0kk/Sxspp9dgWf5p3EE0OUQe3g (ED25519)</li>
+			<li> 2048 SHA256:C3P4FLq03YMBgA0ipZrw8AvYLQsq54I1lYUPhPKI5iE (RSA)</li>
+                </ul>Additionally, all the avatars were lost. No repository data was lost, however.</p>
 		<br>
 		<h2> How has this been addressed </h2>
 		<p> <ul>
-			<li> The init script has been adjusted so that it removes the offending lockfile when necessary. </li>
-			<li> Scripts were written that monitor the amount of stale Git processes and attempts to kill them after a timeout is reached. </li>
+			<li> The systems were reinstalled and restored from backup where possible. </li>
 		</ul>
 		</p>
+		<br>
+		<a name="2015-07-18"></a>
+		<h1>2015-07-18</h1>
+		<h2> What happened </h2>
+		<p> NotABug.org web front-end was throwing 500 errors for most of the day. It seems git pushes also did not work.</p>
+		<br>
+		<h2> What caused it </h2>
+		<p> Someone has flooded the Gogs install with thousands of new user registrations. We were effectively suffering a denial of service attack.</p>
+		<br>
+		<h2> How has this been addressed </h2>
+		<p> <ul>
+			<li> The Gogs VM was restarted. </li>
+			<li> The new users were deleted. </li>
+		</ul> More work still needs to be done to make this type of attack less likely to succeed in the future. No concrete steps have been taken in this direction, however.
+		</p>
+		<br>
 		<br>
 		<a name="2015-04-20"></a>
 		<h1>2015-04-20</h1>

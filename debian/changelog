@@ -1,3 +1,9 @@
+gogs (0.6.1-13) unstable; urgency=low
+
+  * Explain outage of 31-01-2016
+
+ -- Hein-Pieter van Braam <hp@tmm.cx>  Mon, 01 Feb 2016 21:13:21 +0200
+
 gogs (0.6.1-12) unstable; urgency=low
 
   * Explain outage of 30-04-2015
