@@ -707,6 +707,13 @@ func MigrateRepository(u *User, opts MigrateRepoOptions) (*Repository, error) {
 		if err != nil {
 			return repo, fmt.Errorf("OpenRepository: %v", err)
 		}
+
+// BEGIN notabug patch
+		if gitRepo.IsBranchExist("master") {
+			repo.DefaultBranch = "master"
+		} else {
+// END notabug patch
+
 		headBranch, err := gitRepo.GetHEADBranch()
 		if err != nil {
 			return repo, fmt.Errorf("GetHEADBranch: %v", err)
@@ -714,6 +721,11 @@ func MigrateRepository(u *User, opts MigrateRepoOptions) (*Repository, error) {
 		if headBranch != nil {
 			repo.DefaultBranch = headBranch.Name
 		}
+
+// BEGIN notabug patch
+		}
+// END notabug patch
+
 	}
 
 	if opts.IsMirror {
