@@ -12,7 +12,13 @@
 						{{if eq .HookType "gogs"}}
 							<img class="img-13" src="{{AppSubUrl}}/img/favicon.png">
 						{{else if eq .HookType "slack"}}
+
+<!-- BEGIN notabug patch
+
 							<img class="img-13" src="{{AppSubUrl}}/img/slack.png">
+
+END notabug patch -->
+
 						{{end}}
 					</div>
 				</h4>
