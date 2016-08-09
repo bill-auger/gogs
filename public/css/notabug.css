@@ -1,0 +1,51 @@
+
+/* top navbar and buttons */
+#header-div { background-color: #428bca ; color: white ; }
+#header-div a.item.active { color: #CC0 ; }
+#header-logo-img { width: 48px ; height: 48px ; }
+
+/* top navbar right menu */
+.ui.menu .dropdown.item .menu { background: #428bca ; }
+.notabug-header ,
+.notabug-item ,
+.ui.menu .ui.dropdown .menu > .notabug-item { color: white !important ; }
+div.right.menu { height: 48px ; }
+.ui.secondary.menu .item { height: 40px; }
+div.dropdown:nth-child(2) > span:nth-child(1) { margin-bottom: 4px ; } /* + btn */
+div.right:nth-child(6) > a:nth-child(3) > i:nth-child(1) { margin-left: 6px ; } /* logout btn */
+
+/* top navbar buttons hover */
+.ui.dropdown.head.link.jump.item.poping.up:hover ,
+.ui.top.secondary.menu a.item:hover           { color: #ff0 ; }
+.following.bar .top.menu a.item:hover ,
+.following.bar .top.menu .dropdown.item:hover { background-color: #244664 ; }
+div.right:nth-child(6) > a:nth-child(3):hover { background-color: #244664 ; } /* logout btn */
+div.right:nth-child(6) > a:nth-child(3) > i:nth-child(1):hover { color: #ff0 ; } /* logout btn */
+
+/* top navbar right menu hover */
+.notabug-item:hover ,
+.ui.menu .ui.dropdown .menu > .notabug-item:hover
+{ background-color: #244664 !important ; color: #ff0 !important ; }
+
+/* static notabug pages */
+input { background-color: white; }
+#about-div , #help-div , #outages-div , #tos-div { margin: 32px 0px 80px 0px ; }
+#home-div , #home-logo-div , #home-login-div , #home-header-div , #home-footer-div
+{ position: fixed ; width: 100% ; }
+#home-div        { width: 100% ; top: 48px ; bottom: 40px ; background-color: #428bca ; }
+#home-header-div { top: 20% ; height: 40% ; }
+#home-logo-div   { left: 18% ; width: 20% ; }
+#home-login-div  { left: 38% ; width: 62% ; }
+#home-logo-img   { width: 100%; }
+#home-title-span   { color: #0C0 ; font-family: monospace ; }
+#home-title-l-span { color: #00C ; font-family: monospace ; }
+#home-title-r-span { color: #CC0 ; font-family: monospace ; }
+.home-login-label { float: left ; width: 3em ; }
+#home-login-btn   { /*position: relative ; top: -1.25em ;  margin: 0em 0.5em ;*/
+                    background-color: rgb(33, 186, 69) ; color: white; height: 24px ;
+                    box-shadow: 0px 0px 0px 0px rgba(34, 36, 38, 0.15) inset ;
+                    border: medium none ; border-radius: 0.285714rem ;                }
+#home-footer-div   { bottom: 54px ; padding: 20px ; z-index: -1 ; background-color: white ;
+                     text-align: center ; }
+#home-footer-l-div { width: 50% ; left: 0% ; }
+#home-footer-r-div { width: 50% ; left: 50% ; }

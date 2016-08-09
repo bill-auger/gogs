@@ -213,6 +213,16 @@ func runWeb(ctx *cli.Context) error {
 		Post(bindIgnErr(auth.InstallForm{}), routers.InstallPost)
 	m.Get("/^:type(issues|pulls)$", reqSignIn, user.Issues)
 
+/* BEGIN notabug patch */
+
+	m.Get("/about", ignSignIn, routers.About)
+	m.Get("/help", ignSignIn, routers.Help)
+	m.Get("/outages", ignSignIn, routers.Outages)
+	m.Get("/tos", ignSignIn, routers.Tos)
+
+/* END notabug patch */
+
+
 	// ***** START: User *****
 	m.Group("/user", func() {
 		m.Get("/login", user.SignIn)

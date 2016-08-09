@@ -7,7 +7,19 @@
 	<footer>
 		<div class="ui container">
 			<div class="ui left">
+
+<!-- BEGIN notabug patch -->
+<!--
 				© 2016 Gogs {{if (or .ShowFooterVersion .PageIsAdmin)}}{{.i18n.Tr "version"}}: {{AppVer}}{{end}} {{.i18n.Tr "page"}}: <strong>{{LoadTimes .PageStartTime}}</strong> {{.i18n.Tr "template"}}: <strong>{{call .TmplLoadTimes}}</strong>
+-->
+				<a href="/about">About us</a>
+				&bull;
+				<a href="/outages">Outages</a>
+				&bull;
+				<a href="{{AppSubUrl}}/hp/gogs/issues">Report a problem</a>
+
+<!-- END notabug patch -->
+
 			</div>
 			<div class="ui right links">
 				{{if .ShowFooterBranding}}
@@ -24,7 +36,13 @@
 						{{end}}
 					</div>
 				</div>
+
+<!-- BEGIN notabug patch
+
 				<a target="_blank" href="http://gogs.io">{{.i18n.Tr "website"}}</a>
+
+END notabug patch -->
+
 				{{if (or .ShowFooterVersion .PageIsAdmin)}}<span class="version">{{GoVer}}</span>{{end}}
 			</div>
 		</div>

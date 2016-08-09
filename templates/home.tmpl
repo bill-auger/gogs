@@ -1,37 +1,48 @@
 {{template "base/head" .}}
-<div id="promo-wrapper">
-    <div class="container clear">
-        <div id="promo-logo" class="left">
-            <img src="{{AppSubUrl}}/img/notabug-lg.png" alt="logo" />
-        </div>
-        <div id="promo-content">
-            <h1>NotABug.org</h1>
-            <h2>Free code hosting</h2>
-            <form id="promo-form" action="{{AppSubUrl}}/user/login" method="post">
-                {{.CsrfTokenHtml}}
-                <input class="ipt ipt-large" id="username" name="uname" type="text" placeholder="{{.i18n.Tr "home.uname_holder"}}"/>
-                <input class="ipt ipt-large" name="password" type="password" placeholder="{{.i18n.Tr "home.password_holder"}}"/>
-                <input name="from" type="hidden" value="home">
-                <button class="btn btn-black btn-large">{{.i18n.Tr "sign_in"}}</button>
-                {{if .ShowRegistrationButton}}
-                <button class="btn btn-green btn-large" id="register-button">{{.i18n.Tr "register"}}</button>
-                {{end}}
-            </form>
-        </div>&nbsp;
-    </div>
-</div>
-<div id="feature-wrapper">
-   <div class="container clear">
-      <div class="grid-1-2 left">
-         <img src="{{AppSubUrl}}/img/hack.png" alt="peers-logo" width="52px" />
-         <b>Peers</b>
-         <p>NotABug.org is a <a href="http://peers.community">Peers Community</a> project</p>
-      </div>
-      <div class="grid-1-2 left">
-         <img src="{{AppSubUrl}}/img/gogs-lg.png" alt="gogs-logo" width="52px" />
-         <b>Powered by gogs</b>
-         <p>NotABug.org is powered by a <a href="{{AppSubUrl}}/hp/gogs/">locally modified</a> version of <a href="http://gogs.io">gogs</a></p>
-      </div>
-   </div>
+<div id="home-div">
+	<div id="home-header-div" class="ui middle very relaxed page grid">
+		<div id="home-logo-div">
+			<img id="home-logo-img" src="{{AppSubUrl}}/img/notabug-lg.png" alt="logo" />
+		</div>
+
+		<div id="home-login-div">
+			<h2 id="home-title-h2">
+				<span id="home-title-span">{</span>
+				<span id="home-title-l-span">'NotABug.org': </span>
+				<span id="home-title-r-span">&quot;Free&nbsp;code&nbsp;hosting&quot;<span>
+				<span id="home-title-span">}</span>
+			</h2>
+
+			<form id="home-login-form" action="{{AppSubUrl}}/user/login" method="post">
+				<input name="from" type="hidden" value="home">
+				{{.CsrfTokenHtml}}
+				<p>
+					<label for="user_name" class="home-login-label">User:</label>
+					<input id="user_name" name="user_name" autofocus required placeholder="{{.i18n.Tr "home.uname_holder"}}">
+				</p><p>
+					<label for="password" class="home-login-label">Pass:</label>
+					<input id="password" name="password" type="password" required placeholder="{{.i18n.Tr "home.password_holder"}}"/>
+					<button id="home-login-btn">{{.i18n.Tr "sign_in"}}</button>
+				</p><p>
+					{{if .ShowRegistrationButton}}
+					<a href="{{AppSubUrl}}/user/sign_up">{{.i18n.Tr "auth.sign_up_now" | Str2html}}</a>
+					{{end}}
+				</p>
+			</form>
+		</div>
+	</div>
+
+	<div id="home-footer-div" class="ui middle very relaxed page grid">
+		<div id="home-footer-l-div">
+			<img src="{{AppSubUrl}}/img/hack.png" alt="peers-logo" width="52px" />
+			<b>Peers</b>
+			<p>NotABug.org is a <a href="http://peers.community">Peers Community</a> project</p>
+		</div>
+		<div id="home-footer-r-div">
+			<img src="{{AppSubUrl}}/img/gogs-lg.png" alt="gogs-logo" width="52px" />
+			<b>Powered by gogs</b>
+			<p>NotABug.org is powered by a <a href="{{AppSubUrl}}/hp/gogs/">liberated</a> version of <a href="http://gogs.io">gogs</a></p>
+		</div>
+	</div>
 </div>
 {{template "base/footer" .}}

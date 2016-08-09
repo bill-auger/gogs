@@ -20,6 +20,10 @@ const (
 	HOME          base.TplName = "home"
 	EXPLORE_REPOS base.TplName = "explore/repos"
 	EXPLORE_USERS base.TplName = "explore/users"
+	ABOUT         base.TplName = "about"
+	HELP          base.TplName = "help"
+	OUTAGES       base.TplName = "outages"
+	TOS           base.TplName = "tos"
 )
 
 func Home(ctx *context.Context) {
@@ -183,4 +187,28 @@ func ExploreUsers(ctx *context.Context) {
 func NotFound(ctx *context.Context) {
 	ctx.Data["Title"] = "Page Not Found"
 	ctx.Handle(404, "home.NotFound", nil)
+}
+
+func About(ctx *context.Context) {
+	ctx.Data["Title"] = ctx.Tr("about")
+
+	ctx.HTML(200, ABOUT)
+}
+
+func Help(ctx *context.Context) {
+	ctx.Data["Title"] = ctx.Tr("help")
+
+	ctx.HTML(200, HELP)
+}
+
+func Outages(ctx *context.Context) {
+	ctx.Data["Title"] = ctx.Tr("outages")
+
+	ctx.HTML(200, OUTAGES)
+}
+
+func Tos(ctx *context.Context) {
+	ctx.Data["Title"] = ctx.Tr("tos")
+
+	ctx.HTML(200, TOS)
 }
