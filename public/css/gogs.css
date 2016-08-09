@@ -2724,3 +2724,37 @@ footer .ui.language .menu {
 .ui.user.list .item .description a:hover {
   text-decoration: underline;
 }
+
+
+/* BEGIN notabug patch */
+
+/* top navbar and left buttons */
+.following.bar.light { background-color: #428bca; color: white; }
+.following.bar.light a.item.active { color: #CC0; }
+
+/* top navbar right buttons */
+.following.bar.light a ,
+.ui.menu .item { color: white; }
+
+/* top navbar right menu */
+.ui.menu .dropdown.item .menu { background: #428bca; }
+.notabug-header ,
+.ui.menu .ui.dropdown .menu > .notabug-item { color: white !important; }
+div.right.menu { height: 48px; }
+.ui.secondary.menu .item { height: 40px; }
+div.dropdown:nth-child(2) > span:nth-child(1) { margin-bottom: 4px; } /* + btn */
+div.right:nth-child(6) > a:nth-child(3) > i:nth-child(1) { margin-left: 6px; } /* logout btn */
+
+/* top navbar buttons hover */
+.ui.dropdown.head.link.jump.item.poping.up:hover ,
+.ui.top.secondary.menu a.item:hover { color: #ff0; }
+.following.bar .top.menu a.item:hover, .following.bar .top.menu .dropdown.item:hover, .following.bar .top.menu .dropdown.item.active
+{ background-color: #244664; }
+div.right:nth-child(6) > a:nth-child(3):hover { background-color: #244664; } /* logout btn */
+div.right:nth-child(6) > a:nth-child(3) > i:nth-child(1):hover { color: #ff0; } /* logout btn */
+
+/* top navbar right menu hover */
+.ui.menu .ui.dropdown .menu > .notabug-item:hover
+{ background-color: #244664 !important; color: #ff0 !important; }
+
+/* END notabug patch */
